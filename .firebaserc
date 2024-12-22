@@ -1,0 +1,5 @@
+{
+  "projects": {
+    "default": "iehp-patient-fhir-demo"
+  }
+}

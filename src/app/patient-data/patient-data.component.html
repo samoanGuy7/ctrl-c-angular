@@ -1,0 +1,54 @@
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <mat-card *ngIf="errorMessage">
+      <h2>Error</h2>
+      <p>{{ errorMessage }}</p>
+    </mat-card>
+
+    <mat-card *ngIf="patientData && !errorMessage">
+      <h2>Patient Information</h2>
+      <mat-list>
+        <mat-list-item><strong>First Name:</strong> {{ patientData.name[0]?.given[0] }}</mat-list-item>
+        <mat-list-item><strong>Name:</strong> {{ patientData.name[0]?.family }} </mat-list-item>
+        <mat-list-item><strong>Gender:</strong> {{ patientData.gender }}</mat-list-item>
+        <mat-list-item><strong>Birth Date:</strong> {{ patientData.birthDate }}</mat-list-item>
+      </mat-list>
+    </mat-card>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div *ngIf="isLoading">
+      <mat-spinner></mat-spinner> 
+    </div>
+
+    <mat-card *ngIf="observations.length > 0 && !errorMessage">
+      <h2>Observations (Labs)</h2>
+      <table mat-table [dataSource]="observations" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="code">
+          <th mat-header-cell *matHeaderCellDef> Code </th>
+          <td mat-cell *matCellDef="let element"> {{ element.code?.coding[0]?.display   
+ }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="value">
+          <th mat-header-cell *matHeaderCellDef> Value </th>
+          <td mat-cell *matCellDef="let   
+ element"> 
+            {{ element.valueQuantity?.value   
+ }} {{ element.valueQuantity?.unit }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Date </th>
+          <td mat-cell *matCellDef="let element">   
+ {{ element.effectiveDateTime }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['code', 'value', 'date']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['code', 'value', 'date'];"></tr>
+      </table>
+    </mat-card>
+  </mat-sidenav-content>
+</mat-sidenav-container>

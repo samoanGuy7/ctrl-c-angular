@@ -1,0 +1,8 @@
+.mat-drawer-container {
+    position: static; /* Or your desired position */
+    z-index: 1000; /* Ensure it's on top */
+  }
+  
+  .mat-sidenav {
+    z-index: 1001; /* Ensure sidenav is above the container */
+  }
